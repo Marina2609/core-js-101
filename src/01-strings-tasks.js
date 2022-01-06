@@ -5,7 +5,6 @@
  *                                                                                           *
  ******************************************************************************************* */
 
-
 /** +
  * Returns the result of concatenation of two strings.
  *
@@ -21,7 +20,6 @@
 function concatenateStrings(value1, value2) {
   return value1 + value2;
 }
-
 
 /** +
  * Returns the length of given string.
@@ -69,8 +67,7 @@ function extractNameFromTemplate(/* value */) {
   throw new Error('Not implemented');
 }
 
-
-/**
+/** +
  * Returns a first char of the given string.
  *
  * @param {string} value
@@ -80,11 +77,11 @@ function extractNameFromTemplate(/* value */) {
  *   'John Doe'  => 'J'
  *   'cat'       => 'c'
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  return value[0];
 }
 
-/**
+/** +-
  * Removes a leading and trailing whitespace characters from string.
  *
  * @param {string} value
@@ -96,10 +93,11 @@ function getFirstChar(/* value */) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(/* value */) {
+  // return value.replace(/[^a-zа-яё0-9\s]/gi, ' ');
   throw new Error('Not implemented');
 }
 
-/**
+/** +
  * Returns a string that repeated the specified number of times.
  *
  * @param {string} value
@@ -110,11 +108,11 @@ function removeLeadingAndTrailingWhitespaces(/* value */) {
  *   'A', 5  => 'AAAAA'
  *   'cat', 3 => 'catcatcat'
  */
-function repeatString(/* value, count */) {
-  throw new Error('Not implemented');
+function repeatString(value, count) {
+  return value.repeat(count);
 }
 
-/**
+/** +
  * Remove the first occurrence of string inside another string
  *
  * @param {string} str
@@ -126,11 +124,11 @@ function repeatString(/* value, count */) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  return str.replace(value, '');
 }
 
-/**
+/** +
  * Remove the first and last angle brackets from tag string
  *
  * @param {string} str
@@ -141,10 +139,9 @@ function removeFirstOccurrences(/* str, value */) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.replace(/[<>]/g, '');
 }
-
 
 /** +
  * Converts all characters of the specified string into the upper case
@@ -160,7 +157,7 @@ function convertToUpperCase(str) {
   return str.toUpperCase();
 }
 
-/**
+/** +
  * Extracts e-mails from single string with e-mails list delimeted by semicolons
  *
  * @param {string} str
@@ -175,8 +172,8 @@ function convertToUpperCase(str) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -205,7 +202,6 @@ function extractEmails(/* str */) {
 function getRectangleString(/* width, height */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Encode specified string with ROT13 cipher
@@ -244,7 +240,6 @@ function isString(/* value */) {
   throw new Error('Not implemented');
 }
 
-
 /**
  * Returns playid card id.
  *
@@ -272,7 +267,6 @@ function isString(/* value */) {
 function getCardId(/* value */) {
   throw new Error('Not implemented');
 }
-
 
 module.exports = {
   concatenateStrings,
