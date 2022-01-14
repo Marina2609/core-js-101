@@ -295,7 +295,7 @@ function get3TopItems(/* arr */) {
 }
 
 
-/**
+/** +
  * Returns the number of positive numbers from specified array
  *
  * @param {array} arr
@@ -308,8 +308,9 @@ function get3TopItems(/* arr */) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  const rezult = arr.filter((x) => typeof x === 'number' && x > 0);
+  return (rezult.length);
 }
 
 /**
@@ -329,7 +330,7 @@ function sortDigitNamesByNumericOrder(/* arr */) {
   throw new Error('Not implemented');
 }
 
-/**
+/** +
  * Returns the sum of all items in the specified array of numbers
  *
  * @param {array} arr
@@ -341,11 +342,11 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
+function getItemsSum(arr) {
+  return arr.reduce(((acc, cur) => acc + cur), 0);
 }
 
-/**
+/** +
  * Returns the number of all falsy value in the specified array
  *
  * @param {array} arr
@@ -357,11 +358,12 @@ function getItemsSum(/* arr */) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  const rezult = arr.filter((x) => Boolean(x) === false);
+  return (rezult.length);
 }
 
-/**
+/** +
  * Returns a number of all occurrences of the specified item in an array
  *
  * @param {array} arr
@@ -375,11 +377,12 @@ function getFalsyValuesCount(/* arr */) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurrences(arr, item) {
+  const rezult = arr.filter((x) => x === item);
+  return (rezult.length);
 }
 
-/**
+/** +
  * Concatenates all elements from specified array into single string with ',' delimiter
  *
  * @param {array} arr
@@ -390,8 +393,8 @@ function findAllOccurrences(/* arr, item */) {
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
-function toStringList(/* arr */) {
-  throw new Error('Not implemented');
+function toStringList(arr) {
+  return arr.toString(arr);
 }
 
 
