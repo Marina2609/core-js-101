@@ -324,10 +324,33 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
-}
+function isBracketsBalanced(str) {
+  if (str.length <= 1) {
+    return false;
+  }
 
+  let matchingOpeningBracket;
+  let ch;
+  const stack = [];
+
+  const openingBrackets = ['[', '{', '(', '<', ''];
+  const closingBrackets = [']', '}', ')', '>', ''];
+
+  for (let i = 0; i < str.length; i += 1) {
+    ch = str[i];
+
+    if (closingBrackets.indexOf(ch) > -1) {
+      matchingOpeningBracket = openingBrackets[closingBrackets.indexOf(ch)];
+      if (stack.length === 0 || stack.pop() !== matchingOpeningBracket) {
+        return false;
+      }
+    } else {
+      stack.push(ch);
+    }
+  }
+
+  return stack.length === 0;
+}
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n <= 10)
  * representation of specified number.
@@ -368,7 +391,7 @@ function getCommonDirectoryPath(/* pathes */) {
   throw new Error('Not implemented');
 }
 
-/**
+/** +
  * Returns the product of two specified matrixes.
  * See details: https://en.wikipedia.org/wiki/Matrix_multiplication
  *
@@ -386,8 +409,28 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const rowsM1 = m1.length;
+  const colsM1 = m1[0].length;
+  const rowsM2 = m2.length;
+  const colsM2 = m2[0].length;
+  const C = [];
+  if (colsM1 !== rowsM2) {
+    return false;
+  }
+  for (let i = 0; i < rowsM1; i += 1) {
+    C[i] = [];
+  }
+  for (let k = 0; k < colsM2; k += 1) {
+    for (let i = 0; i < rowsM1; i += 1) {
+      let t = 0;
+      for (let j = 0; j < rowsM2; j += 1) {
+        t += m1[i][j] * m2[j][k];
+      }
+      C[i][k] = t;
+    }
+  }
+  return C;
 }
 
 /**

@@ -53,7 +53,7 @@ function getStringFromTemplate(firstName, lastName) {
   return `Hello, ${firstName} ${lastName}!`;
 }
 
-/**
+/** +
  * Extracts a name from template string 'Hello, First_Name Last_Name!'.
  *
  * @param {string} value
@@ -63,8 +63,8 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, John Doe!' => 'John Doe'
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  return value.substring(7, value.length - 1);
 }
 
 /** +
@@ -81,7 +81,7 @@ function getFirstChar(value) {
   return value[0];
 }
 
-/** +-
+/** +
  * Removes a leading and trailing whitespace characters from string.
  *
  * @param {string} value
@@ -92,9 +92,8 @@ function getFirstChar(value) {
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  // return value.replace(/[^a-zа-яё0-9\s]/gi, ' ');
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.trim();
 }
 
 /** +
@@ -176,7 +175,7 @@ function extractEmails(str) {
   return str.split(';');
 }
 
-/**
+/** +
  * Returns the string representation of rectangle with specified width and height
  * using pseudograhic chars
  *
@@ -199,11 +198,11 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  return `┌${'─'.repeat(width - 2)}┐\n${`│${' '.repeat(width - 2)}│\n`.repeat(height - 2)}└${'─'.repeat(width - 2)}┘\n`;
 }
 
-/**
+/** +
  * Encode specified string with ROT13 cipher
  * See details:  https://en.wikipedia.org/wiki/ROT13
  *
@@ -219,11 +218,17 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const alfabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,.!?';
+  const cipher = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm ,.!?';
+  let rezult = '';
+  for (let i = 0; i < str.length; i += 1) {
+    rezult += cipher[alfabet.indexOf(str[i])];
+  }
+  return rezult;
 }
 
-/**
+/** +
  * Returns true if the value is string; otherwise false.
  * @param {string} value
  * @return {boolean}
@@ -236,11 +241,11 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return value instanceof String || typeof (value) === 'string';
 }
 
-/**
+/** +
  * Returns playid card id.
  *
  * Playing cards inittial deck inclides the cards in the following order:
@@ -264,8 +269,12 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const arrayCards = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  return arrayCards.indexOf(value);
 }
 
 module.exports = {
