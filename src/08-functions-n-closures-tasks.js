@@ -9,7 +9,7 @@
  ********************************************************************************************* */
 
 
-/**
+/** +
  * Returns the functions composition of two specified functions f(x) and g(x).
  * The result of compose is to be a function of one argument, (lets call the argument x),
  * which works like applying function f to the result of applying function g to x, i.e.
@@ -23,12 +23,12 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
+function getComposition(f, g) {
+  return (x) => f(g(x));
 }
 
 
-/**
+/** +
  * Returns the math power function with the specified exponent
  *
  * @param {number} exponent
@@ -44,8 +44,10 @@ function getComposition(/* f, g */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return function power(x) {
+    return x ** exponent;
+  };
 }
 
 
@@ -67,7 +69,7 @@ function getPolynom() {
 }
 
 
-/**
+/** +
  * Memoizes passed function and returns function
  * which invoked first time calls the passed function and then always returns cached result.
  *
@@ -81,8 +83,16 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const cached = {};
+  return (num) => {
+    if (cached[num] !== undefined) {
+      return cached[num];
+    }
+    const result = func(num);
+    cached[num] = result;
+    return result;
+  };
 }
 
 
