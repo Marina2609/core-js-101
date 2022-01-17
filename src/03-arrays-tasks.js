@@ -258,7 +258,7 @@ function getSecondItems(arr) {
 }
 
 
-/**
+/** +
  * Propagates every item in sequence its position times
  * Returns an array that consists of: one first item, two second items, tree third items etc.
  *
@@ -272,12 +272,13 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const array = arr.map((a, b) => new Array(b + 1).fill(a));
+  return array.length === 0 ? [] : array.reduce((a, b) => a.concat(b));
 }
 
 
-/**
+/** +
  * Returns the 3 largest numbers from the specified array
  *
  * @param {array} arr
@@ -290,8 +291,8 @@ function propagateItemsByPositionIndex(/* arr */) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  return arr.sort((a, b) => b - a).filter((a, i) => i < 3);
 }
 
 
@@ -313,7 +314,7 @@ function getPositivesCount(arr) {
   return (rezult.length);
 }
 
-/**
+/** +
  * Sorts digit names
  *
  * @param {array} arr
@@ -326,8 +327,10 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  const array = arr.map((a) => numbers.indexOf(a)).sort((a, b) => a - b);
+  return array.map((a) => numbers[a]);
 }
 
 /** +
@@ -398,7 +401,7 @@ function toStringList(arr) {
 }
 
 
-/**
+/** +
  * Sorts the specified array by country name first and city name
  * (if countries are equal) in ascending order.
  *
@@ -424,11 +427,19 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    if (a.country > b.country) {
+      return 1;
+    }
+    if (a.country === b.country && a.city > b.city) {
+      return 1;
+    }
+    return -1;
+  });
 }
 
-/**
+/** +
  * Creates an identity matrix of the specified size
  *
  * @param {number} n
@@ -446,11 +457,12 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  return new Array(n).fill(0).map((value, index) => new Array(n).fill(0)
+    .map((elem, index2) => (index === index2 ? 1 : 0)));
 }
 
-/**
+/** +
  * Creates an array of integers from the specified start to end (inclusive)
  *
  * @param {number} start
@@ -463,11 +475,14 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  if (end === undefined) {
+    return [start];
+  }
+  return new Array(end - start + 1).fill(0).map((a, b) => start + b);
 }
 
-/**
+/** +
  * Returns array containing only unique values from the specified array.
  *
  * @param {array} arr
@@ -478,11 +493,12 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  const array = [];
+  return arr.filter((a) => (array.includes(a) ? '' : array.push(a)));
 }
 
-/**
+/** +
  * Groups elements of the specified array by key.
  * Returns multimap of keys extracted from array elements via keySelector callback
  * and values extracted via valueSelector callback.
@@ -512,12 +528,19 @@ function distinct(/* arr */) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const arr = new Map();
+  array.map((item) => {
+    if (arr.has(keySelector(item))) {
+      return arr.set(keySelector(item), (`${arr.get(keySelector(item))},${valueSelector(item)}`).split(','));
+    }
+    return arr.set(keySelector(item), [valueSelector(item)]);
+  });
+  return arr;
 }
 
 
-/**
+/** +
  * Projects each element of the specified array to a sequence
  * and flattens the resulting sequences into one array.
  *
@@ -530,12 +553,13 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  const rezult = arr.map((a) => childrenSelector(a));
+  return rezult.reduce((a, b) => a.concat(b));
 }
 
 
-/**
+/** +
  * Returns an element from the multidimensional array by the specified indexes.
  *
  * @param {array} arr
@@ -547,12 +571,15 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  if (indexes.length === 1) {
+    return arr[indexes[0]];
+  }
+  return getElementByIndexes(arr[0], indexes.slice(1));
 }
 
 
-/**
+/** +
  * Swaps the head and tail of the specified array:
  * the head (first half) of array move to the end, the tail (last half) move to the start.
  * The middle element (if exists) leave on the same position.
@@ -570,8 +597,14 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  if (arr.length % 2 !== 0) {
+    arr.unshift(arr.splice(Math.floor(arr.length / 2), 1)[0]);
+    const array = arr.splice(Math.ceil(arr.length / 2));
+    return array.concat(arr);
+  }
+  const rezult = arr.splice(arr.length / 2);
+  return rezult.concat(arr);
 }
 
 
