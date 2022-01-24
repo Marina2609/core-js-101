@@ -51,7 +51,7 @@ function getPowerFunction(exponent) {
 }
 
 
-/**
+/** +
  * Returns the polynom function of one argument based on specified coefficients.
  * See: https://en.wikipedia.org/wiki/Polynomial#Definition
  *
@@ -64,8 +64,15 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...args) {
+  return (x) => {
+    let degree = args.length - 1;
+    let y = null;
+    for (let i = 0; i < args.length; i += 1, degree -= 1) {
+      y += args[i] * x ** degree;
+    }
+    return y;
+  };
 }
 
 
@@ -96,7 +103,7 @@ function memoize(func) {
 }
 
 
-/**
+/** +
  * Returns the function trying to call the passed function and if it throws,
  * retrying it specified number of attempts.
  *
@@ -111,12 +118,22 @@ function memoize(func) {
  * }, 2);
  * retryer() => 2
  */
-function retry(/* func, attempts */) {
-  throw new Error('Not implemented');
+function retry(func, attempts) {
+  return () => {
+    let rezult = null;
+    for (let i = 0; i < attempts; i += 1) {
+      try {
+        rezult = func();
+      } catch (error) {
+        rezult = error;
+      }
+    }
+    return rezult;
+  };
 }
 
 
-/**
+/** +
  * Returns the logging wrapper for the specified method,
  * Logger has to log the start and end of calling the specified function.
  * Logger has to log the arguments of invoked function.
@@ -139,12 +156,18 @@ function retry(/* func, attempts */) {
  * cos(3.141592653589793) ends
  *
  */
-function logger(/* func, logFunc */) {
-  throw new Error('Not implemented');
+function logger(func, logFunc) {
+  return (...args) => {
+    const str = args.map((item) => JSON.stringify(item)).join(',');
+    logFunc(`${func.name}(${str}) starts`);
+    const result = func(...args);
+    logFunc(`${func.name}(${str}) ends`);
+    return result;
+  };
 }
 
 
-/**
+/** +
  * Return the function with partial applied arguments
  *
  * @param {Function} fn
@@ -157,12 +180,12 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return (...args) => fn(...args1, ...args);
 }
 
 
-/**
+/** +
  * Returns the id generator function that returns next integer starting
  * from specified number every time when invoking.
  *
@@ -179,8 +202,14 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let number = startFrom;
+
+  return () => {
+    const result = number;
+    number += 1;
+    return result;
+  };
 }
 
 
